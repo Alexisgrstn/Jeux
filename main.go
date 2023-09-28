@@ -46,3 +46,11 @@ func charCreation() *Personnage {
 	personnage.Init(nom, classe, 1, pvMax, pvActuels, "Coup de Poing", 100)
 	return personnage
 }
+
+func NormalizeName(nom string) string {
+	if len(nom) == 0 {
+		return ""
+	}
+	return strings.ToUpper(string(nom[0])) + strings.ToLower(nom[1:])
+}
+
