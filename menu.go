@@ -24,3 +24,12 @@ func afficherMenu() {
 	fmt.Println("=======================================")
 }
 
+func getChoice() int {
+	var choix int
+	_, err := fmt.Scan(&choix)
+	if err != nil {
+		fmt.Println("Erreur de saisie. Veuillez entrer 1, 2, 3 ou 4.")
+	}
+	return choix
+}
+
