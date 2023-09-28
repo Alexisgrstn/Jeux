@@ -220,3 +220,16 @@ func (marchand *Marchand) vendreItem(joueur *Personnage, item string) {
 	}
 }
 
+func (joueur *Personnage) utiliserItem(item string) {
+	for index, v := range joueur.Inventaire {
+		if v.Name == item {
+			switch item {
+			case "Livre de Sort : Boule de Feu":
+				joueur.SpellBook()
+				joueur.Inventaire = append(joueur.Inventaire[:index], joueur.Inventaire[index+1:]...)
+				return
+			}
+		}
+	}
+	fmt.Println("L'item n'est pas dans l'inventaire.")
+}
