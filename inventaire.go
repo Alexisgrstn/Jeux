@@ -43,3 +43,18 @@ func AskForInventoryChoice(joueur *Personnage) int {
 	return inventoryChoice
 }
 
+func useInventoryItem(joueur *Personnage, inventoryChoice int) {
+	index := inventoryChoice - 1
+	selectedItem := joueur.Inventaire[index]
+	if selectedItem.Name == "RedBull" {
+		usePotion(joueur, index)
+	} else if selectedItem.Name == "Potion de poison" {
+		usePoisonPotion(joueur, index)
+	} else if selectedItem.Name == "Livre de Sort : Boule de Feu" {
+		joueur.SpellBook()
+		// ...
+	} else {
+		fmt.Println("Vous ne pouvez utiliser que des RedBull, des potions de poison ou des livres de sort.")
+	}
+}
+
