@@ -211,3 +211,12 @@ func NewMarchand() *Marchand {
 	}
 }
 
+func (marchand *Marchand) vendreItem(joueur *Personnage, item string) {
+	for _, v := range marchand.ItemsEnVente {
+		if v == item {
+			joueur.Inventaire = append(joueur.Inventaire, Item{})
+			return
+		}
+	}
+}
+
