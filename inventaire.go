@@ -205,3 +205,9 @@ func askForMarchandChoice() int {
 	return choix
 }
 
+func NewMarchand() *Marchand {
+	return &Marchand{
+		ItemsEnVente: []string{"Livre de Sort : Boule de Feu"},
+	}
+}
+
