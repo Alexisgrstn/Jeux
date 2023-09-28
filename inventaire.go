@@ -106,3 +106,12 @@ func usePoisonPotion(joueur *Personnage, index int) {
 
 }
 
+func AddToInventory(joueur *Personnage, item Item) {
+	if len(joueur.Inventaire) >= 10 {
+		fmt.Println("=======================================")
+		fmt.Println("Votre inventaire est plein. Vous ne pouvez pas ajouter plus d'articles.")
+		return
+	}
+	joueur.Inventaire = append(joueur.Inventaire, item)
+}
+
