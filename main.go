@@ -54,3 +54,8 @@ func NormalizeName(nom string) string {
 	return strings.ToUpper(string(nom[0])) + strings.ToLower(nom[1:])
 }
 
+func clearScreen() {
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+}
