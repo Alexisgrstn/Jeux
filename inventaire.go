@@ -194,3 +194,14 @@ func marchand(joueur *Personnage) {
 	}
 }
 
+func askForMarchandChoice() int {
+	var choix int
+	fmt.Print("Choisissez une option (0, 1 ou 2): ")
+	_, err := fmt.Scan(&choix)
+	if err != nil {
+		fmt.Println("Erreur de saisie. Veuillez entrer 0, 1 ou 2.")
+		return -1
+	}
+	return choix
+}
+
