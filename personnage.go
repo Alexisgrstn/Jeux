@@ -47,3 +47,8 @@ func (joueur *Personnage) displayInfo() {
 	fmt.Println("Argent:", joueur.Argent)
 	fmt.Println("=======================================")
 }
+
+func (joueur *Personnage) AddToInventory(item Item) {
+	joueur.Inventaire = append(joueur.Inventaire, item)
+}
+
