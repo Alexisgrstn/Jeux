@@ -80,3 +80,29 @@ func usePotion(joueur *Personnage, index int) {
 	joueur.Inventaire = append(joueur.Inventaire[:index], joueur.Inventaire[index+1:]...)
 }
 
+func usePoisonPotion(joueur *Personnage, index int) {
+	const poisonDamage = 10
+	const poisonDuration = 3
+	clearScreen()
+	fmt.Println("=======================================")
+	fmt.Println("Vous avez utilisé une Potion de poison.")
+	fmt.Println("Vous subissez des dégâts de poison pendant 3 secondes.")
+	fmt.Println("=======================================")
+
+	for i := 0; i < poisonDuration; i++ {
+		joueur.PvActuels -= poisonDamage
+		if joueur.PvActuels < 0 {
+			joueur.PvActuels = 0
+		}
+
+		fmt.Printf("Points de vie actuels: %d / %d\n", joueur.PvActuels, joueur.PvMax)
+		time.Sleep(1 * time.Second)
+	}
+
+	// Supprimer la potion de l'inventaire
+	joueur.Inventaire = append(joueur.Inventaire[:index], joueur.Inventaire[index+1:]...)
+	fmt.Println("=======================================")
+	fmt.Println("Les effets du poison ont disparu.")
+
+}
+
