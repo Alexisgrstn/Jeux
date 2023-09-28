@@ -52,3 +52,12 @@ func (joueur *Personnage) AddToInventory(item Item) {
 	joueur.Inventaire = append(joueur.Inventaire, item)
 }
 
+func (joueur *Personnage) SpellBook() {
+	for _, v := range joueur.Sort {
+		if v == "Boule de feu" {
+			return
+		}
+	}
+	joueur.Sort = append(joueur.Sort, "Boule de feu")
+}
+
