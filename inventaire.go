@@ -27,3 +27,19 @@ func menuInventaire(joueur *Personnage) {
 	}
 }
 
+func AskForInventoryChoice(joueur *Personnage) int {
+	var inventoryChoice int
+	fmt.Println("=======================================")
+	fmt.Print("Choisissez une option (0 pour retourner au menu principal): ")
+	_, err := fmt.Scan(&inventoryChoice)
+	if err != nil {
+		fmt.Println("Erreur de saisie. Veuillez entrer un nombre valide.")
+		return -1
+	}
+	if inventoryChoice < 0 || inventoryChoice > len(joueur.Inventaire) {
+		fmt.Println("Option invalide. Veuillez entrer un nombre valide ou 0 pour retourner au menu principal.")
+		return -1
+	}
+	return inventoryChoice
+}
+
