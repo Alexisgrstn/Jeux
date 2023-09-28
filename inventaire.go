@@ -115,3 +115,82 @@ func AddToInventory(joueur *Personnage, item Item) {
 	joueur.Inventaire = append(joueur.Inventaire, item)
 }
 
+func marchand(joueur *Personnage) {
+	for {
+		clearScreen()
+		fmt.Println("=======================================")
+		fmt.Println("Bienvenue au magasin!")
+		fmt.Println("=======================================")
+		fmt.Println("1. RedBull - 3 pièces d'or")
+		fmt.Println("2. Potion de poison - 6 pièces d'or")
+		fmt.Println("3. Livre de Sort : Boule de feu - 25 pièces d'or")
+		fmt.Println("4. Fourrure de Loup - 4 pièces d'or")
+		fmt.Println("5. Peau de Troll - 7 pièces d'or")
+		fmt.Println("6. Cuir de Sanglier - 3 pièces d'or")
+		fmt.Println("7. Plume de Corbeau - 1 pièce d'or")
+		fmt.Println("8. Quitter")
+		fmt.Println("=======================================")
+		fmt.Printf("Argent disponible: %d\n", joueur.Argent)
+		fmt.Print("Faites votre choix: ")
+
+		var choix int
+		_, err := fmt.Scan(&choix)
+		if err != nil {
+			fmt.Println("Erreur de saisie. Veuillez entrer un nombre entre 1 et 8.")
+			continue
+		}
+		switch choix {
+		case 1:
+			if joueur.Argent >= 3 {
+				AddToInventory(joueur, Item{Name: "RedBull", Value: 3})
+				joueur.Argent -= 3
+			}
+			clearScreen()
+		case 2:
+			if joueur.Argent >= 6 {
+				AddToInventory(joueur,Item{Name: "Potion de poison", Value: 6})
+				joueur.Argent -= 6
+			}
+			clearScreen()
+		case 3:
+			if joueur.Argent >= 25 {
+				AddToInventory(joueur,Item{Name: "Livre de Sort : Boule de feu", Value: 25})
+				joueur.Argent -= 25
+			}
+			clearScreen()
+		case 4:
+			if joueur.Argent >= 4 {
+				AddToInventory(joueur,Item{Name: "Fourrure de Loup", Value: 4})
+				joueur.Argent -= 4
+			}
+			clearScreen()
+		case 5:
+			if joueur.Argent >= 7 {
+				AddToInventory(joueur,Item{Name: "Peau de Troll", Value: 7})
+				joueur.Argent -= 7
+			}
+			clearScreen()
+		case 6:
+			if joueur.Argent >= 3 {
+				AddToInventory(joueur,Item{Name: "Cuir de Sanglier", Value: 3})
+				joueur.Argent -= 3
+			}
+			clearScreen()
+		case 7:
+			if joueur.Argent >= 1 {
+				AddToInventory(joueur,Item{Name: "Plume de Corbeau", Value: 1})
+				joueur.Argent -= 1
+			}
+			clearScreen()
+		case 8:
+			return
+		default:
+			fmt.Println("Option invalide. Veuillez entrer un nombre entre 1 et 8.")
+		}
+
+		if choix >= 1 && choix <= 7 && joueur.Argent < choix {
+			fmt.Println("Vous n'avez pas assez d'argent.")
+		}
+	}
+}
+
