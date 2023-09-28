@@ -29,3 +29,21 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.Argent = 100
 }
 
+func NewPersonnage() *Personnage {
+	return &Personnage{}
+}
+func (joueur *Personnage) displayInfo() {
+	clearScreen()
+	fmt.Println("=======================================")
+	fmt.Println("Informations du personnage:")
+	fmt.Println("=======================================")
+	fmt.Println("Nom:", joueur.Nom)
+	fmt.Println("Classe:", joueur.Classe)
+	fmt.Println("Niveau:", joueur.Niveau)
+	fmt.Println("Points de vie maximum:", joueur.PvMax)
+	fmt.Println("Points de vie actuels:", joueur.PvActuels)
+	fmt.Println("Inventaire:", joueur.Inventaire)
+	fmt.Println("Skill:", joueur.Sort)
+	fmt.Println("Argent:", joueur.Argent)
+	fmt.Println("=======================================")
+}
