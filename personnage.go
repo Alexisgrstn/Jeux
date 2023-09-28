@@ -13,3 +13,8 @@ type Personnage struct {
 	Argent     int
 }
 
+type Item struct {
+	Name  string
+	Value int
+}
+
