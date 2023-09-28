@@ -58,3 +58,25 @@ func useInventoryItem(joueur *Personnage, inventoryChoice int) {
 	}
 }
 
+func usePotion(joueur *Personnage, index int) {
+	const potionHeal = 50
+
+	if joueur.PvActuels == joueur.PvMax {
+		fmt.Println("Vous avez déjà plein de vie !")
+		return
+	}
+
+	healAmount := joueur.PvActuels + potionHeal
+	if healAmount > joueur.PvMax {
+		healAmount = joueur.PvMax
+	}
+
+	healed := healAmount - joueur.PvActuels
+	fmt.Printf("Vous avez utilisé une Redbull et avez été soigné de %d points de vie. Vous avez maintenant %d points de vie actuels sur %d.\n", healed, healAmount, joueur.PvMax)
+
+	joueur.PvActuels = healAmount
+
+	// Supprimer la potion de l'inventaire
+	joueur.Inventaire = append(joueur.Inventaire[:index], joueur.Inventaire[index+1:]...)
+}
+
