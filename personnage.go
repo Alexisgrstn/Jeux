@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Personnage struct {
 	Nom        string
@@ -32,24 +35,18 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 func NewPersonnage() *Personnage {
 	return &Personnage{}
 }
-func (joueur *Personnage) displayInfo() {
-	clearScreen()
-	fmt.Println("=======================================")
-	fmt.Println("Informations du personnage:")
-	fmt.Println("=======================================")
-	fmt.Println("Nom:", joueur.Nom)
-	fmt.Println("Classe:", joueur.Classe)
-	fmt.Println("Niveau:", joueur.Niveau)
-	fmt.Println("Points de vie maximum:", joueur.PvMax)
-	fmt.Println("Points de vie actuels:", joueur.PvActuels)
-	fmt.Println("Inventaire:", joueur.Inventaire)
-	fmt.Println("Skill:", joueur.Sort)
-	fmt.Println("Argent:", joueur.Argent)
-	fmt.Println("=======================================")
-}
 
-func (joueur *Personnage) AddToInventory(item Item) {
-	joueur.Inventaire = append(joueur.Inventaire, item)
+func (joueur *Personnage) displayInfo() {
+	fmt.Println("=======================================")
+	fmt.Printf("Nom: %s\n", joueur.Nom)
+	fmt.Printf("Classe: %s\n", joueur.Classe)
+	fmt.Printf("Niveau: %d\n", joueur.Niveau)
+	fmt.Printf("Points de vie maximum: %d\n", joueur.PvMax)
+	fmt.Printf("Points de vie actuels: %d\n", joueur.PvActuels)
+	fmt.Printf("Inventaire: %+v\n", joueur.Inventaire)
+	fmt.Printf("Skill: %+v\n", joueur.Sort)
+	fmt.Printf("Argent: %d\n", joueur.Argent)
+	fmt.Println("=======================================")
 }
 
 func (joueur *Personnage) SpellBook() {
@@ -72,5 +69,7 @@ func (joueur *Personnage) dead() {
 		joueur.PvActuels = joueur.PvMax / 2
 		fmt.Printf("vous avez été réanimé avec %d point de vie grâce à une RedBull.\n", joueur.PvActuels)
 		fmt.Println("Prenez garde et continuez votre aventure!")
+		time.Sleep(1 * time.Second) // Attend 5 secondes
+		clearScreen()
 	}
 }

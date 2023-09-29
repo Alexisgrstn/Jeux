@@ -8,9 +8,9 @@ import (
 type Marchand struct {
 	ItemsEnVente []string
 }
+
 func menuInventaire(joueur *Personnage) {
 	for {
-		clearScreen()
 		fmt.Println("=======================================")
 		fmt.Println("Inventaire du personnage:")
 		fmt.Println("=======================================")
@@ -106,18 +106,22 @@ func usePoisonPotion(joueur *Personnage, index int) {
 
 }
 
-func AddToInventory(joueur *Personnage, item Item) {
+func (joueur *Personnage) AddToInventory(item Item) {
 	if len(joueur.Inventaire) >= 10 {
+        fmt.Println("=======================================")
+        fmt.Println("Votre inventaire est plein. Vous ne pouvez pas ajouter plus d'articles.")
 		fmt.Println("=======================================")
-		fmt.Println("Votre inventaire est plein. Vous ne pouvez pas ajouter plus d'articles.")
-		return
-	}
+		time.Sleep(3 * time.Second)
+        return
+    }
 	joueur.Inventaire = append(joueur.Inventaire, item)
+	fmt.Printf("Item %s ajouté à l'inventaire.\n", item.Name)
+	time.Sleep(1 * time.Second)
+
 }
 
 func marchand(joueur *Personnage) {
 	for {
-		clearScreen()
 		fmt.Println("=======================================")
 		fmt.Println("Bienvenue au magasin!")
 		fmt.Println("=======================================")
@@ -142,43 +146,43 @@ func marchand(joueur *Personnage) {
 		switch choix {
 		case 1:
 			if joueur.Argent >= 3 {
-				AddToInventory(joueur, Item{Name: "RedBull", Value: 3})
+				joueur.AddToInventory(Item{Name: "RedBull", Value: 3})
 				joueur.Argent -= 3
 			}
 			clearScreen()
 		case 2:
 			if joueur.Argent >= 6 {
-				AddToInventory(joueur,Item{Name: "Potion de poison", Value: 6})
+				joueur.AddToInventory(Item{Name: "Potion de poison", Value: 6})
 				joueur.Argent -= 6
 			}
 			clearScreen()
 		case 3:
 			if joueur.Argent >= 25 {
-				AddToInventory(joueur,Item{Name: "Livre de Sort : Boule de feu", Value: 25})
+				joueur.AddToInventory(Item{Name: "Livre de Sort : Boule de feu", Value: 25})
 				joueur.Argent -= 25
 			}
 			clearScreen()
 		case 4:
 			if joueur.Argent >= 4 {
-				AddToInventory(joueur,Item{Name: "Fourrure de Loup", Value: 4})
+				joueur.AddToInventory(Item{Name: "Fourrure de Loup", Value: 4})
 				joueur.Argent -= 4
 			}
 			clearScreen()
 		case 5:
 			if joueur.Argent >= 7 {
-				AddToInventory(joueur,Item{Name: "Peau de Troll", Value: 7})
+				joueur.AddToInventory(Item{Name: "Peau de Troll", Value: 7})
 				joueur.Argent -= 7
 			}
 			clearScreen()
 		case 6:
 			if joueur.Argent >= 3 {
-				AddToInventory(joueur,Item{Name: "Cuir de Sanglier", Value: 3})
+				joueur.AddToInventory(Item{Name: "Cuir de Sanglier", Value: 3})
 				joueur.Argent -= 3
 			}
 			clearScreen()
 		case 7:
 			if joueur.Argent >= 1 {
-				AddToInventory(joueur,Item{Name: "Plume de Corbeau", Value: 1})
+				joueur.AddToInventory(Item{Name: "Plume de Corbeau", Value: 1})
 				joueur.Argent -= 1
 			}
 			clearScreen()
