@@ -11,6 +11,7 @@ type Marchand struct {
 
 func menuInventaire(joueur *Personnage) {
 	for {
+		clearScreen()
 		fmt.Println("=======================================")
 		fmt.Println("Inventaire du personnage:")
 		fmt.Println("=======================================")
@@ -63,6 +64,7 @@ func usePotion(joueur *Personnage, index int) {
 
 	if joueur.PvActuels == joueur.PvMax {
 		fmt.Println("Vous avez déjà plein de vie !")
+		time.Sleep(2 * time.Second)
 		return
 	}
 
@@ -73,7 +75,7 @@ func usePotion(joueur *Personnage, index int) {
 
 	healed := healAmount - joueur.PvActuels
 	fmt.Printf("Vous avez utilisé une Redbull et avez été soigné de %d points de vie. Vous avez maintenant %d points de vie actuels sur %d.\n", healed, healAmount, joueur.PvMax)
-
+	time.Sleep(2 * time.Second)
 	joueur.PvActuels = healAmount
 
 	// Supprimer la potion de l'inventaire
@@ -106,18 +108,24 @@ func usePoisonPotion(joueur *Personnage, index int) {
 
 }
 
-func (joueur *Personnage) AddToInventory(item Item) {
+func (joueur *Personnage) AddToInventory(item Item, cost int) bool {
 	if len(joueur.Inventaire) >= 10 {
-        fmt.Println("=======================================")
-        fmt.Println("Votre inventaire est plein. Vous ne pouvez pas ajouter plus d'articles.")
 		fmt.Println("=======================================")
-		time.Sleep(3 * time.Second)
-        return
-    }
+		fmt.Println("Votre inventaire est plein. Vous ne pouvez pas ajouter plus d'articles.")
+		fmt.Println("=======================================")
+		time.Sleep(1 * time.Second)
+		clearScreen()
+		return false
+	}
+	if joueur.Argent < cost {
+		fmt.Println("Vous n'avez pas assez d'argent.")
+		return false
+	}
 	joueur.Inventaire = append(joueur.Inventaire, item)
 	fmt.Printf("Item %s ajouté à l'inventaire.\n", item.Name)
 	time.Sleep(1 * time.Second)
-
+	joueur.Argent -= cost
+	return true
 }
 
 func marchand(joueur *Personnage) {
@@ -144,56 +152,44 @@ func marchand(joueur *Personnage) {
 			continue
 		}
 		switch choix {
-		case 1:
-			if joueur.Argent >= 3 {
-				joueur.AddToInventory(Item{Name: "RedBull", Value: 3})
-				joueur.Argent -= 3
-			}
-			clearScreen()
-		case 2:
-			if joueur.Argent >= 6 {
-				joueur.AddToInventory(Item{Name: "Potion de poison", Value: 6})
-				joueur.Argent -= 6
-			}
-			clearScreen()
-		case 3:
-			if joueur.Argent >= 25 {
-				joueur.AddToInventory(Item{Name: "Livre de Sort : Boule de feu", Value: 25})
-				joueur.Argent -= 25
-			}
-			clearScreen()
-		case 4:
-			if joueur.Argent >= 4 {
-				joueur.AddToInventory(Item{Name: "Fourrure de Loup", Value: 4})
-				joueur.Argent -= 4
-			}
-			clearScreen()
-		case 5:
-			if joueur.Argent >= 7 {
-				joueur.AddToInventory(Item{Name: "Peau de Troll", Value: 7})
-				joueur.Argent -= 7
-			}
-			clearScreen()
-		case 6:
-			if joueur.Argent >= 3 {
-				joueur.AddToInventory(Item{Name: "Cuir de Sanglier", Value: 3})
-				joueur.Argent -= 3
-			}
-			clearScreen()
-		case 7:
-			if joueur.Argent >= 1 {
-				joueur.AddToInventory(Item{Name: "Plume de Corbeau", Value: 1})
-				joueur.Argent -= 1
-			}
-			clearScreen()
-		case 8:
-			return
+			case 1:
+				if joueur.AddToInventory(Item{Name: "RedBull", Value: 3}, 3) {
+					clearScreen()
+				}
+			case 2:
+				if joueur.AddToInventory(Item{Name: "Potion de poison", Value: 6}, 6) {
+				clearScreen()
+				}
+			case 3:
+				if joueur.AddToInventory(Item{Name: "Livre de Sort : Boule de feu", Value: 25}, 25) {
+				clearScreen()
+				}
+			case 4:
+				if joueur.AddToInventory(Item{Name: "Fourrure de Loup", Value: 4}, 4) {
+				clearScreen()
+				}
+			case 5:
+				if joueur.AddToInventory(Item{Name: "Peau de Troll", Value: 7}, 7) {
+				clearScreen()
+				}
+			case 6:
+				if joueur.AddToInventory(Item{Name: "Cuir de Sanglier", Value: 3}, 3) {
+				clearScreen()
+				}
+			case 7:
+				if joueur.AddToInventory(Item{Name: "Plume de Corbeau", Value: 1}, 1) {
+				clearScreen()
+				}
+			case 8:
+				return
 		default:
 			fmt.Println("Option invalide. Veuillez entrer un nombre entre 1 et 8.")
 		}
 
 		if choix >= 1 && choix <= 7 && joueur.Argent < choix {
 			fmt.Println("Vous n'avez pas assez d'argent.")
+			time.Sleep(2 * time.Second)
+			clearScreen()
 		}
 	}
 }

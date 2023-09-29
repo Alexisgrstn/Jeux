@@ -7,13 +7,13 @@ import (
 )
 
 func handleMenu(joueur *Personnage) {
-
 	afficherMenu()
 	choix := getChoice()
 	executeChoice(joueur, choix)
 }
 
 func afficherMenu() {
+	clearScreen()
 	fmt.Println("Menu:")
 	fmt.Println("=======================================")
 	fmt.Println("1. Afficher les informations du personnage")

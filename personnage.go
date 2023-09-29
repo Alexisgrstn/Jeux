@@ -69,7 +69,7 @@ func (joueur *Personnage) dead() {
 		joueur.PvActuels = joueur.PvMax / 2
 		fmt.Printf("vous avez été réanimé avec %d point de vie grâce à une RedBull.\n", joueur.PvActuels)
 		fmt.Println("Prenez garde et continuez votre aventure!")
-		time.Sleep(1 * time.Second) // Attend 5 secondes
+		time.Sleep(5 * time.Second)
 		clearScreen()
 	}
 }
