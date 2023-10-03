@@ -14,6 +14,7 @@ type Personnage struct {
 	Inventaire []Item
 	Sort       []string
 	Argent     int
+	Equipement map[string]int
 }
 
 type Item struct {
@@ -21,7 +22,7 @@ type Item struct {
 	Value int
 }
 
-func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int) {
+func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, equipement map[string]int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = niveau
@@ -30,6 +31,7 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.Inventaire = []Item{}
 	p.Sort = []string{sort}
 	p.Argent = 100
+	p.Equipement = make(map[string]int)
 }
 
 func NewPersonnage() *Personnage {
@@ -46,6 +48,7 @@ func (joueur *Personnage) displayInfo() {
 	fmt.Printf("Inventaire: %+v\n", joueur.Inventaire)
 	fmt.Printf("Skill: %+v\n", joueur.Sort)
 	fmt.Printf("Argent: %d\n", joueur.Argent)
+	fmt.Printf("Equipement: %+v\n", joueur.Equipement)
 	fmt.Println("=======================================")
 }
 

@@ -247,7 +247,7 @@ func Forgeron(joueur *Personnage) {
 		fmt.Println("Menu principal:")
 		fmt.Println("=======================================")
 		fmt.Println("1. Forgeron")
-		fmt.Println("2. Quitter")
+		fmt.Println("3. Quitter")
 		fmt.Println("=======================================")
 		fmt.Printf("Argent disponible: %d\n", or)
 
@@ -255,7 +255,7 @@ func Forgeron(joueur *Personnage) {
 		fmt.Scanln(&choix)
 		clearScreen()
 
-		if choix == 2 {
+		if choix == 3 {
 			break
 		}
 
@@ -300,9 +300,11 @@ func Forgeron(joueur *Personnage) {
 					or -= 5
 					inventaire["Plume de Corbeau"]--
 					inventaire["Cuir de Sanglier"]--
+					joueur.Equipement["Chapeau de l'aventurier"]++
 					fmt.Println("Vous avez fabriqué un chapeau de l'aventurier!")
 					time.Sleep(2 * time.Second)
 					clearScreen()
+
 				case 2:
 
 					if inventaire["Fourrure de loup"] < 2 {
@@ -320,10 +322,10 @@ func Forgeron(joueur *Personnage) {
 					or -= 5
 					inventaire["Fourrure de loup"] -= 2
 					inventaire["Peau de Troll"]--
+					joueur.Equipement["Tunique de l'aventurier"]++
 					fmt.Println("Vous avez fabriqué une tunique de l'aventurier!")
 					time.Sleep(2 * time.Second)
 					clearScreen()
-
 				case 3:
 
 					if inventaire["Fourrure de loup"] < 1 {
@@ -341,6 +343,7 @@ func Forgeron(joueur *Personnage) {
 					or -= 5
 					inventaire["Fourrure de loup"]--
 					inventaire["Cuir de Sanglier"]--
+					joueur.Equipement["Bottes de l'aventurier"]++
 					fmt.Println("Vous avez fabriqué des bottes de l'aventurier!")
 					time.Sleep(2 * time.Second)
 					clearScreen()

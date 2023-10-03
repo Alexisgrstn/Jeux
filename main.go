@@ -43,7 +43,7 @@ func charCreation() *Personnage {
 	pvActuels = pvMax / 2
 
 	personnage := NewPersonnage()
-	personnage.Init(nom, classe, 1, pvMax, pvActuels, "Coup de Poing", 100)
+	personnage.Init(nom, classe, 1, pvMax, pvActuels, "Coup de Poing", 100, make(map[string]int))
 	return personnage
 }
 
@@ -58,4 +58,12 @@ func clearScreen() {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
 	cmd.Run()
+}
+
+func ForgeronInventory() {
+	p := &Personnage{
+		Equipement: make(map[string]int),
+	}
+
+	Forgeron(p)
 }
