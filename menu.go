@@ -19,7 +19,7 @@ func afficherMenu() {
 	fmt.Println("1. Afficher les informations du personnage")
 	fmt.Println("2. Accéder à l'inventaire du personnage")
 	fmt.Println("3. Marchand")
-	fmt.Println("4.Forgeron")
+	fmt.Println("4. Forgeron")
 	fmt.Println("5. Quitter")
 	fmt.Println("=======================================")
 	fmt.Print("Choisissez une option (1, 2, 3, 4 ou 5): ")
