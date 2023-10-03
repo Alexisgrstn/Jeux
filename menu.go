@@ -19,6 +19,7 @@ func afficherMenu() {
 	fmt.Println("1. Afficher les informations du personnage")
 	fmt.Println("2. Accéder à l'inventaire du personnage")
 	fmt.Println("3. Marchand")
+	fmt.Println("4.Forgeron")
 	fmt.Println("4. Quitter")
 	fmt.Println("=======================================")
 	fmt.Print("Choisissez une option (1, 2, 3 ou 4): ")
@@ -40,6 +41,7 @@ func executeChoice(joueur *Personnage, choix int) {
 	case 1:
 		clearScreen()
 		joueur.displayInfo()
+		time.Sleep(5 * time.Second)
 	case 2:
 		clearScreen()
 		menuInventaire(joueur)
@@ -47,6 +49,10 @@ func executeChoice(joueur *Personnage, choix int) {
 		clearScreen()
 		marchand(joueur)
 	case 4:
+		clearScreen()
+		Forgeron(joueur)
+
+	case 5:
 		clearScreen()
 		fmt.Println("Au revoir !")
 		os.Exit(0)
