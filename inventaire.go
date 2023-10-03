@@ -152,36 +152,36 @@ func marchand(joueur *Personnage) {
 			continue
 		}
 		switch choix {
-			case 1:
-				if joueur.AddToInventory(Item{Name: "RedBull", Value: 3}, 3) {
-					clearScreen()
-				}
-			case 2:
-				if joueur.AddToInventory(Item{Name: "Potion de poison", Value: 6}, 6) {
+		case 1:
+			if joueur.AddToInventory(Item{Name: "RedBull", Value: 3}, 3) {
 				clearScreen()
-				}
-			case 3:
-				if joueur.AddToInventory(Item{Name: "Livre de Sort : Boule de feu", Value: 25}, 25) {
+			}
+		case 2:
+			if joueur.AddToInventory(Item{Name: "Potion de poison", Value: 6}, 6) {
 				clearScreen()
-				}
-			case 4:
-				if joueur.AddToInventory(Item{Name: "Fourrure de Loup", Value: 4}, 4) {
+			}
+		case 3:
+			if joueur.AddToInventory(Item{Name: "Livre de Sort : Boule de feu", Value: 25}, 25) {
 				clearScreen()
-				}
-			case 5:
-				if joueur.AddToInventory(Item{Name: "Peau de Troll", Value: 7}, 7) {
+			}
+		case 4:
+			if joueur.AddToInventory(Item{Name: "Fourrure de Loup", Value: 4}, 4) {
 				clearScreen()
-				}
-			case 6:
-				if joueur.AddToInventory(Item{Name: "Cuir de Sanglier", Value: 3}, 3) {
+			}
+		case 5:
+			if joueur.AddToInventory(Item{Name: "Peau de Troll", Value: 7}, 7) {
 				clearScreen()
-				}
-			case 7:
-				if joueur.AddToInventory(Item{Name: "Plume de Corbeau", Value: 1}, 1) {
+			}
+		case 6:
+			if joueur.AddToInventory(Item{Name: "Cuir de Sanglier", Value: 3}, 3) {
 				clearScreen()
-				}
-			case 8:
-				return
+			}
+		case 7:
+			if joueur.AddToInventory(Item{Name: "Plume de Corbeau", Value: 1}, 1) {
+				clearScreen()
+			}
+		case 8:
+			return
 		default:
 			fmt.Println("Option invalide. Veuillez entrer un nombre entre 1 et 8.")
 		}
@@ -232,4 +232,123 @@ func (joueur *Personnage) utiliserItem(item string) {
 		}
 	}
 	fmt.Println("L'item n'est pas dans l'inventaire.")
+}
+func Forgeron(joueur *Personnage) {
+	inventaire := make(map[string]int)
+	or := 20
+
+	// Initialisation des ressources de l'inventaire
+	inventaire["Plume de Corbeau"] = 2
+	inventaire["Cuir de Sanglier"] = 2
+	inventaire["Fourrure de loup"] = 2
+	inventaire["Peau de Troll"] = 1
+
+	for {
+		fmt.Println("Menu principal:")
+		fmt.Println("=======================================")
+		fmt.Println("1. Forgeron")
+		fmt.Println("2. Quitter")
+		fmt.Println("=======================================")
+		fmt.Printf("Argent disponible: %d\n", or)
+
+		var choix int
+		fmt.Scanln(&choix)
+		clearScreen()
+
+		if choix == 2 {
+			break
+		}
+
+		if choix == 1 {
+			for {
+				fmt.Println("Menu du Forgeron:")
+				fmt.Println("=======================================")
+				fmt.Println("1. Chapeau de l'aventurier")
+				fmt.Println("2. Tunique de l'aventurier")
+				fmt.Println("3. Bottes de l'aventurier")
+				fmt.Println("4. Retour")
+				fmt.Println("=======================================")
+
+				var sousChoix int
+				fmt.Scanln(&sousChoix)
+				clearScreen()
+
+				if sousChoix == 4 {
+					break
+				}
+
+				if or < 5 {
+					fmt.Println("Vous n'avez pas assez d'or pour fabriquer un équipement.")
+					continue
+				}
+
+				switch sousChoix {
+				case 1:
+
+					if inventaire["Plume de Corbeau"] < 1 {
+						fmt.Println("Il vous manque 1 Plume de Corbeau.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					if inventaire["Cuir de Sanglier"] < 1 {
+						fmt.Println("Il vous manque 1 Cuir de Sanglier.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					or -= 5
+					inventaire["Plume de Corbeau"]--
+					inventaire["Cuir de Sanglier"]--
+					fmt.Println("Vous avez fabriqué un chapeau de l'aventurier!")
+					time.Sleep(2 * time.Second)
+					clearScreen()
+				case 2:
+
+					if inventaire["Fourrure de loup"] < 2 {
+						fmt.Println("Il vous manque de la Fourrure de loup.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					if inventaire["Peau de Troll"] < 1 {
+						fmt.Println("Il vous manque 1 Peau de Troll.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					or -= 5
+					inventaire["Fourrure de loup"] -= 2
+					inventaire["Peau de Troll"]--
+					fmt.Println("Vous avez fabriqué une tunique de l'aventurier!")
+					time.Sleep(2 * time.Second)
+					clearScreen()
+
+				case 3:
+
+					if inventaire["Fourrure de loup"] < 1 {
+						fmt.Println("Il vous manque 1 Fourrure de loup.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					if inventaire["Cuir de Sanglier"] < 1 {
+						fmt.Println("Il vous manque 1 Cuir de Sanglier.")
+						time.Sleep(2 * time.Second)
+						clearScreen()
+						continue
+					}
+					or -= 5
+					inventaire["Fourrure de loup"]--
+					inventaire["Cuir de Sanglier"]--
+					fmt.Println("Vous avez fabriqué des bottes de l'aventurier!")
+					time.Sleep(2 * time.Second)
+					clearScreen()
+				default:
+					fmt.Println("Choix non valide.")
+					clearScreen()
+				}
+			}
+		}
+	}
 }
