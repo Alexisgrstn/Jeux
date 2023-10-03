@@ -15,6 +15,8 @@ type Personnage struct {
 	Sort       []string
 	Argent     int
 	Equipement map[string]int
+	AmeliorationInventaire int
+	MaxSlotsInventaire int
 }
 
 type Item struct {
@@ -32,6 +34,8 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.Sort = []string{sort}
 	p.Argent = 100
 	p.Equipement = make(map[string]int)
+	p.AmeliorationInventaire = 0
+	p.MaxSlotsInventaire = 10
 }
 
 func NewPersonnage() *Personnage {

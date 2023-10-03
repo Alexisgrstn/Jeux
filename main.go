@@ -60,10 +60,3 @@ func clearScreen() {
 	cmd.Run()
 }
 
-func ForgeronInventory() {
-	p := &Personnage{
-		Equipement: make(map[string]int),
-	}
-
-	Forgeron(p)
-}
