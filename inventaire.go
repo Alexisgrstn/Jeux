@@ -209,6 +209,7 @@ func askForMarchandChoice() int {
 		fmt.Println("Erreur de saisie. Veuillez entrer 0, 1 ou 2.")
 		return -1
 	}
+	clearScreen()
 	return choix
 }
 
@@ -284,18 +285,18 @@ func afficherMenuForgeron() {
 func traiterChoix(choix int, or *int, inventaire map[string]int, joueur *Personnage) {
 	switch choix {
 	case 1:
-		creerEquipement(or, inventaire, joueur, "Chapeau de l'aventurier", map[string]int{"Plume de Corbeau": 1, "Cuir de Sanglier": 1})
+		EquipInventory(or, inventaire, joueur, "Chapeau de l'aventurier", map[string]int{"Plume de Corbeau": 1, "Cuir de Sanglier": 1})
 	case 2:
-		creerEquipement(or, inventaire, joueur, "Tunique de l'aventurier", map[string]int{"Fourrure de loup": 2, "Peau de Troll": 1})
+		EquipInventory(or, inventaire, joueur, "Tunique de l'aventurier", map[string]int{"Fourrure de loup": 2, "Peau de Troll": 1})
 	case 3:
-		creerEquipement(or, inventaire, joueur, "Bottes de l'aventurier", map[string]int{"Fourrure de loup": 1, "Cuir de Sanglier": 1})
+		EquipInventory(or, inventaire, joueur, "Bottes de l'aventurier", map[string]int{"Fourrure de loup": 1, "Cuir de Sanglier": 1})
 	default:
 		fmt.Println("Choix non valide.")
 		clearScreen()
 	}
 }
 
-func creerEquipement(or *int, inventaire map[string]int, joueur *Personnage, equipement string, ressourcesRequises map[string]int) {
+func EquipInventory(or *int, inventaire map[string]int, joueur *Personnage, equipement string, ressourcesRequises map[string]int) {
 	for ressource, quantite := range ressourcesRequises {
 		if inventaire[ressource] < quantite {
 			fmt.Printf("Il vous manque %d %s.\n", quantite-inventaire[ressource], ressource)
