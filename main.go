@@ -57,8 +57,6 @@ func NormalizeName(nom string) string {
 		fmt.Println("Nom invalide")
 		return charCreation().Nom
 	}
-
-
 }
 
 func clearScreen() {
