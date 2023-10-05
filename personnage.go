@@ -6,17 +6,18 @@ import (
 )
 
 type Personnage struct {
-	Nom        string
-	Classe     string
-	Niveau     int
-	PvMax      int
-	PvActuels  int
-	Inventaire []Item
-	Sort       []string
-	Argent     int
-	Equipement map[string]int
+	Nom                    string
+	Classe                 string
+	Niveau                 int
+	PvMax                  int
+	PvActuels              int
+	Inventaire             []Item
+	Sort                   []string
+	Argent                 int
+	Equipement             map[string]int
 	AmeliorationInventaire int
-	MaxSlotsInventaire int
+	MaxSlotsInventaire     int
+	PointsDAttaque int
 }
 
 type Item struct {
@@ -24,7 +25,23 @@ type Item struct {
 	Value int
 }
 
-func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, equipement map[string]int) {
+type Monstre struct {
+	Nom            string
+	PvMax   int
+	PvActuels      int
+	PointsDAttaque int
+}
+
+func InitGoblin() Monstre {
+	return Monstre{
+		Nom:            "Gobelin d'entrainement",
+		PvMax:   40,
+		PvActuels:      40,
+		PointsDAttaque: 20,
+	}
+}
+
+func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, Equipement (map[string]int), PointsDAttaque int ) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = niveau
@@ -36,6 +53,7 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.Equipement = make(map[string]int)
 	p.AmeliorationInventaire = 0
 	p.MaxSlotsInventaire = 10
+	p.PointsDAttaque = 20
 }
 
 func NewPersonnage() *Personnage {
@@ -49,10 +67,13 @@ func (joueur *Personnage) displayInfo() {
 	fmt.Printf("Niveau: %d\n", joueur.Niveau)
 	fmt.Printf("Points de vie maximum: %d\n", joueur.PvMax)
 	fmt.Printf("Points de vie actuels: %d\n", joueur.PvActuels)
-	fmt.Printf("Inventaire: %+v\n", joueur.Inventaire)
+	fmt.Printf("Points d'attaque: %d\n", joueur.PointsDAttaque)
 	fmt.Printf("Skill: %+v\n", joueur.Sort)
+	fmt.Printf("Inventaire: %+v\n", joueur.Inventaire)
 	fmt.Printf("Argent: %d\n", joueur.Argent)
 	fmt.Printf("Equipement: %+v\n", joueur.Equipement)
+	fmt.Printf("Amélioration de l'inventaire: %d\n", joueur.AmeliorationInventaire)
+	fmt.Printf("Nombre de slots de l'inventaire: %d\n", joueur.MaxSlotsInventaire)
 	fmt.Println("=======================================")
 }
 

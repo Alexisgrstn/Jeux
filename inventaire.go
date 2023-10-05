@@ -328,9 +328,12 @@ func (joueur *Personnage) upgradeInventorySlot() {
 		fmt.Println("Vous n'avez pas assez d'argent pour cette amélioration.")
 		return
 	}
-
+	
 	joueur.MaxSlotsInventaire += 10
 	joueur.AmeliorationInventaire++
 	joueur.Argent -= 30
 	fmt.Println("La capacité de votre inventaire a été augmentée de 10 slots.")
 }
+
+
+
