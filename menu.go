@@ -59,7 +59,7 @@ func executeChoice(joueur *Personnage, choix int) {
 		combatEntrainement(joueur)
 	case 6:
 		clearScreen()
-		fmt.Println("Les artistes cachés sont : Banksy et Da Vinci")
+		fmt.Println("Les artistes cachés sont : Banksy et Da Vinci, A toi de jouer !")
 		time.Sleep(5 * time.Second)
 	case 7:
 		clearScreen()
