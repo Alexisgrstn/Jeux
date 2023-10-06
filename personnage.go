@@ -17,7 +17,18 @@ type Personnage struct {
 	Equipement             map[string]int
 	AmeliorationInventaire int
 	MaxSlotsInventaire     int
-	PointsDAttaque int
+	PointsDAttaque         int
+	MaxExp                 int
+	Level                  int
+	Experience             int
+	Mana                   int
+	MaxMana                int
+}
+
+type Bouclier struct {
+	Head  string
+	Torso string
+	Feet  string
 }
 
 type Item struct {
@@ -27,21 +38,21 @@ type Item struct {
 
 type Monstre struct {
 	Nom            string
-	PvMax   int
+	PvMax          int
 	PvActuels      int
 	PointsDAttaque int
 }
 
-func InitGoblin() Monstre {
+func InitMonstre() Monstre {
 	return Monstre{
 		Nom:            "Gobelin d'entrainement",
-		PvMax:   40,
+		PvMax:          40,
 		PvActuels:      40,
 		PointsDAttaque: 20,
 	}
 }
 
-func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, Equipement (map[string]int), PointsDAttaque int ) {
+func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, Equipement map[string]int, PointsDAttaque int, MaxExp int, Level int, Experience int, Mana int, MaxMana int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = niveau
@@ -54,6 +65,12 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.AmeliorationInventaire = 0
 	p.MaxSlotsInventaire = 10
 	p.PointsDAttaque = 20
+	p.MaxExp = 100
+	p.Level = 1
+	p.Experience = 0
+	p.Mana = 80
+	p.MaxMana = 100
+
 }
 
 func NewPersonnage() *Personnage {
@@ -74,6 +91,7 @@ func (joueur *Personnage) displayInfo() {
 	fmt.Printf("Equipement: %+v\n", joueur.Equipement)
 	fmt.Printf("Amélioration de l'inventaire: %d\n", joueur.AmeliorationInventaire)
 	fmt.Printf("Nombre de slots de l'inventaire: %d\n", joueur.MaxSlotsInventaire)
+	fmt.Printf("Expérience: %d\n", joueur.Experience)
 	fmt.Println("=======================================")
 }
 

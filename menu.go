@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"time"
 )
@@ -71,57 +72,47 @@ func executeChoice(joueur *Personnage, choix int) {
 	}
 }
 
-func charTurn(joueur *Personnage, monstre *Personnage, inventory []string) {
-	fmt.Println("Choisissez une action :")
+func charTurn(joueur *Personnage, monstre *Monstre, Inventaire []Item, tour int) {
+	var choice string
+
+	fmt.Println("Menu")
 	fmt.Println("1. Attaquer")
 	fmt.Println("2. Inventaire")
-	fmt.Println("3. Sorts")
-
-	var choice int
 	fmt.Scanln(&choice)
 
 	switch choice {
-	case 1:
-		monstre.PvActuels -= joueur.PointsDAttaque
-		fmt.Printf("%s inflige %d dégâts à %s\n", joueur.Nom, joueur.PointsDAttaque, monstre.Nom)
-	case 2:
-		fmt.Println("Objets dans l'inventaire :")
-		for i, item := range inventory {
-			fmt.Printf("%d. %s\n", i+1, item)
+	case "1":
+		damage := rand.Intn(joueur.PointsDAttaque)
+		monstre.PvActuels -= damage
+		fmt.Printf("%s attaque et inflige %d de dégâts ! Monstre Pv Restant %d/%d\n", joueur.Nom, damage, monstre.PvActuels, monstre.PvMax)
+		time.Sleep(3 * time.Second)
+		fmt.Println("============================================================")
+
+		if monstre.PvActuels <= 0 {
+			fmt.Println("Le monstre est vaincu!")
+			break
 		}
-		// Gérez le choix de l'objet ici
-	case 3:
-		fmt.Println("Choisissez un sort :")
-		fmt.Println("1. Coup de poing (8 dégâts)")
-		fmt.Println("2. Boule de feu (18 dégâts)")
-
-		var spellChoice int
-		fmt.Scanln(&spellChoice)
-
-		switch spellChoice {
-		case 1:
-			if joueur.Mana >= 5 {
-				damage := 8
-				monstre.PvActuels -= damage
-				joueur.Mana -= 5
-				fmt.Printf("Coup de poing inflige %d dégâts à %s\n", damage, monstre.Nom)
-			} else {
-				fmt.Println("Mana insuffisant!")
+	case "2":
+		if len(Inventaire) == 0 {
+			fmt.Println("Votre inventaire est vide.")
+		} else {
+			fmt.Println("Inventaire:")
+			for i, item := range Inventaire {
+				fmt.Printf("%d. %s\n", i+1, item.Name)
 			}
-		case 2:
-			if joueur.Mana >= 10 {
-				damage := 18
-				monstre.PvActuels -= damage
-				joueur.Mana -= 10
-				fmt.Printf("Boule de feu inflige %d dégâts à %s\n", damage, monstre.Nom)
+
+			fmt.Println("Choisissez un objet à utiliser:")
+			var itemChoice int
+			fmt.Scanln(&itemChoice)
+
+			if itemChoice <= len(Inventaire) && itemChoice > 0 {
+				item := Inventaire[itemChoice-1]
+				joueur.utiliserItem(item.Name)
 			} else {
-				fmt.Println("Mana insuffisant!")
+				fmt.Println("Choix invalide.")
 			}
-		default:
-			fmt.Println("Choix non valide.")
 		}
 	default:
-		fmt.Println("Choix non valide.")
+		fmt.Println("Choix invalide.")
 	}
-	fmt.Printf("%s PV : %d / %d, Mana : %d / %d\n", joueur.Nom, joueur.PvActuels, joueur.PvMax, joueur.Mana, joueur.MaxMana)
 }

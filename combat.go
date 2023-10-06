@@ -2,50 +2,52 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"math/rand"
+	"time"
 )
 
 func combatEntrainement(joueur *Personnage) {
 
 	tour := 1
+	monstre := InitMonstre()
 
-	monstre := InitGoblin()
-		fmt.Printf("Points de vie du personnage avant le combat: %d\n", joueur.PvActuels)
-		time.Sleep(2 * time.Second)
-		fmt.Println("============================================================")
-		fmt.Printf("Points de vie du monstre avant le combat: %d\n", monstre.PvActuels)
-		time.Sleep(2 * time.Second)
-		fmt.Println("============================================================")
-
-		rand.Seed(time.Now().UnixNano())
+	fmt.Printf("Points de vie du personnage avant le combat: %d\n", joueur.PvActuels)
+	time.Sleep(2 * time.Second)
+	fmt.Println("============================================================")
+	fmt.Printf("Points de vie du monstre avant le combat: %d\n", monstre.PvActuels)
+	time.Sleep(2 * time.Second)
+	fmt.Println("============================================================")
 
 	for {
-		damage := rand.Intn(joueur.PointsDAttaque)
-		fmt.Printf("===== Tour %d =====\n", tour)
-		monstre.PvActuels -= damage
-		fmt.Printf("%s attaque et inflige %d de dégâts !\n", joueur.Nom, damage)
-		time.Sleep(2 * time.Second)
-		fmt.Println("============================================================")
 
-		if monstre.PvActuels <= 0 {
-			fmt.Println("Le monstre est vaincu!")
-			time.Sleep(2 * time.Second)
-			fmt.Println("============================================================")
-			break
-		}
-		damage = rand.Intn(monstre.PointsDAttaque)
-		joueur.PvActuels -= damage
-		fmt.Printf("%s attaque et inflige %d de dégâts !\n", monstre.Nom, damage)
-		time.Sleep(2 * time.Second)
-		fmt.Println("============================================================")
+		fmt.Printf("===== Tour %d =====\n", tour)
+
+		MonstrePattern(tour, joueur, &monstre)
+		time.Sleep(3 * time.Second)
 
 		if joueur.PvActuels <= 0 {
 			fmt.Println("Vous avez été vaincu!")
-			time.Sleep(2 * time.Second)
 			joueur.dead()
 			break
 		}
+
+		charTurn(joueur, &monstre, joueur.Inventaire, tour)
+
 		tour++
 	}
+}
+
+func MonstrePattern(tour int, joueur *Personnage, monstre *Monstre) {
+	var damage int
+	baseDamage := rand.Intn(monstre.PointsDAttaque)
+
+	if tour%3 == 0 {
+		damage = baseDamage * 2
+		fmt.Println("Coup critique du monstre! Dégats doublés!")
+	} else {
+		damage = baseDamage
+	}
+
+	joueur.PvActuels -= damage
+	fmt.Printf("%s attaque et inflige %d de dégâts ! %s Pv Restant %d/%d\n", monstre.Nom, damage, joueur.Nom, joueur.PvActuels, joueur.PvMax)
 }
