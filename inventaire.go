@@ -275,9 +275,9 @@ func Forgeron(joueur *Personnage) {
 func afficherMenuForgeron() {
 	fmt.Println("Menu du Forgeron:")
 	fmt.Println("=======================================")
-	fmt.Println("1. Chapeau de l'aventurier")
-	fmt.Println("2. Tunique de l'aventurier")
-	fmt.Println("3. Bottes de l'aventurier")
+	fmt.Println("1. Chapeau de l'aventurier, (Plume de Corbeau, Cuir de Sanglier) - 5 pièces d'or")
+	fmt.Println("2. Tunique de l'aventurier, (Fourrure de loup, Peau de Troll) - 5 pièces d'or")
+	fmt.Println("3. Bottes de l'aventurier, (Fourrure de loup, Cuir de Sanglier) - 5 pièces d'or")
 	fmt.Println("4. Retour")
 	fmt.Println("=======================================")
 }
@@ -329,12 +329,24 @@ func (joueur *Personnage) upgradeInventorySlot() {
 		fmt.Println("Vous n'avez pas assez d'argent pour cette amélioration.")
 		return
 	}
-	
+
 	joueur.MaxSlotsInventaire += 10
 	joueur.AmeliorationInventaire++
 	joueur.Argent -= 30
 	fmt.Println("La capacité de votre inventaire a été augmentée de 10 slots.")
+
 }
 
-
-
+func gainExp(joueur *Personnage, exp int) {
+	joueur.Experience += exp
+	if joueur.Experience >= joueur.MaxExp {
+		excessExp := joueur.Experience - joueur.MaxExp
+		joueur.Level++
+		joueur.MaxExp += 10
+		joueur.Experience = excessExp
+		joueur.PvActuels += 10
+		joueur.PvMax += 10
+		joueur.PointsDAttaque += 2
+		fmt.Printf("%s a atteint le niveau %d!\n", joueur.Nom, joueur.Level)
+	}
+}
