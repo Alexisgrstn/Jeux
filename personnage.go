@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Structure représentant un personnage
 type Personnage struct {
 	Nom                    string
 	Classe                 string
@@ -25,17 +26,20 @@ type Personnage struct {
 	MaxMana                int
 }
 
+// Structure pour un bouclier
 type Bouclier struct {
 	Head  string
 	Torso string
 	Feet  string
 }
 
+// Structure pour un item
 type Item struct {
 	Name  string
 	Value int
 }
 
+// Structure représentant un monstre
 type Monstre struct {
 	Nom            string
 	PvMax          int
@@ -43,6 +47,7 @@ type Monstre struct {
 	PointsDAttaque int
 }
 
+// Fonction pour initialiser un monstre
 func InitMonstre() Monstre {
 	return Monstre{
 		Nom:            "Gobelin d'entrainement",
@@ -52,6 +57,7 @@ func InitMonstre() Monstre {
 	}
 }
 
+// Méthode pour initialiser un personnage
 func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvActuels int, sort string, Argent int, Equipement map[string]int, PointsDAttaque int, MaxExp int, Level int, Experience int, Mana int, MaxMana int) {
 	p.Nom = nom
 	p.Classe = classe
@@ -60,23 +66,24 @@ func (p *Personnage) Init(nom string, classe string, niveau int, pvMax int, pvAc
 	p.PvActuels = pvActuels
 	p.Inventaire = []Item{}
 	p.Sort = []string{sort}
-	p.Argent = 100
+	p.Argent = Argent
 	p.Equipement = make(map[string]int)
 	p.AmeliorationInventaire = 0
 	p.MaxSlotsInventaire = 10
-	p.PointsDAttaque = 20
-	p.MaxExp = 100
-	p.Level = 1
-	p.Experience = 0
-	p.Mana = 80
-	p.MaxMana = 100
-
+	p.PointsDAttaque = PointsDAttaque
+	p.MaxExp = MaxExp
+	p.Level = Level
+	p.Experience = Experience
+	p.Mana = Mana
+	p.MaxMana = MaxMana
 }
 
+// Fonction pour créer un nouveau personnage
 func NewPersonnage() *Personnage {
 	return &Personnage{}
 }
 
+// Méthode pour afficher les informations d'un personnage
 func (joueur *Personnage) displayInfo() {
 	fmt.Println("=======================================")
 	fmt.Printf("Nom: %s\n", joueur.Nom)
@@ -95,27 +102,42 @@ func (joueur *Personnage) displayInfo() {
 	fmt.Println("=======================================")
 }
 
+// Méthode pour gérer le livre de sorts du personnage
 func (joueur *Personnage) SpellBook() {
+	// Parcourir tous les sorts du personnage
 	for _, v := range joueur.Sort {
+		// Si le sort "Boule de feu" est déjà dans le livre de sorts, sortir de la fonction
 		if v == "Boule de feu" {
 			return
 		}
 	}
+	// Ajouter le sort "Boule de feu" dans le livre de sorts si ce n'est pas déjà le cas
 	joueur.Sort = append(joueur.Sort, "Boule de feu")
 }
 
+// Méthode pour gérer la mort du personnage
 func (joueur *Personnage) dead() {
+	// Vérifier si le personnage est mort (points de vie actuels <= 0)
 	if joueur.PvActuels <= 0 {
 		clearScreen()
 		fmt.Println("=======================================")
-		fmt.Print("\033[31m") // Définir la couleur du texte en rouge
+		fmt.Print("\033[31m") // Changer la couleur du texte en rouge
 		fmt.Println("           VOUS ÊTES MORT !           ")
 		fmt.Print("\033[0m") // Réinitialiser la couleur du texte
 		fmt.Println("=======================================")
+		fmt.Println("Da Vinci")
+
+		// Ressusciter le personnage avec la moitié de ses points de vie max
 		joueur.PvActuels = joueur.PvMax / 2
 		fmt.Printf("vous avez été réanimé avec %d point de vie grâce à une RedBull.\n", joueur.PvActuels)
+
+		// Message pour continuer le jeu
 		fmt.Println("Prenez garde et continuez votre aventure!")
+
+		// Pause pour laisser le joueur lire le message
 		time.Sleep(5 * time.Second)
+
+		// Effacer l'écran
 		clearScreen()
 	}
 }
